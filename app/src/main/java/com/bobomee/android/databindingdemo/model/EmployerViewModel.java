@@ -13,19 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.bobomee.android.databindingdemo;
 
-import android.databinding.BaseObservable;
+package com.bobomee.android.databindingdemo.model;
 
-public class EmployeeViewModel extends BaseObservable {
-    public int type;
+public class EmployerViewModel extends EmployeeViewModel {
+    public String avatarUrl;
+    public String position;
 
-    public String name;
-    public int age;
-
-    public EmployeeViewModel(String name, int age) {
-        this.type = 0;
-        this.name = name;
-        this.age = age;
+    public EmployerViewModel(String name, int age, String avatarUrl, String position) {
+        super(name, age);
+        this.avatarUrl = avatarUrl;
+        this.position = position;
+        this.type = 1;
     }
 }

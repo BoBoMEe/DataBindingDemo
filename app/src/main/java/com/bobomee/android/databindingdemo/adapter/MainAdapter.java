@@ -21,7 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.bobomee.android.adapter.CommonAdapter;
 import com.bobomee.android.adapter.interfaces.AdapterItem;
-import com.bobomee.android.databindingdemo.EmployeeViewModel;
+import com.bobomee.android.databindingdemo.model.EmployeeViewModel;
 import java.util.List;
 
 /**

@@ -21,8 +21,11 @@ import android.view.View;
 import android.widget.Toast;
 import com.bobomee.android.adapter.BindingViewHolder;
 import com.bobomee.android.adapter.interfaces.AdapterItem;
-import com.bobomee.android.databindingdemo.EmployeeViewModel;
+import com.bobomee.android.databindingdemo.BR;
+import com.bobomee.android.databindingdemo.model.EmployeeViewModel;
 import com.bobomee.android.databindingdemo.R;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created on 2016/12/15.下午10:12.
@@ -41,8 +44,8 @@ public class EmployeeItem implements AdapterItem<EmployeeViewModel> {
     return R.layout.item_employee;
   }
 
-  @Override public Presenter getPresenter() {
-    return new EmployeePresenter();
+  @Override public Integer getVariableId() {
+    return BR.item;
   }
 
   @Override public Decorator getDecorator() {
@@ -54,7 +57,14 @@ public class EmployeeItem implements AdapterItem<EmployeeViewModel> {
     };
   }
 
-  public class EmployeePresenter implements Presenter {
+  @Override public Map<Integer, Object> getBindData() {
+    Map<Integer, Object> map = new HashMap<>();
+    map.put(BR.presenter, new EmployeePresenter());
+
+    return map;
+  }
+
+  public class EmployeePresenter {
     public void onItemClick(EmployeeViewModel model) {
       Toast.makeText(context, "employee " + model.name, Toast.LENGTH_SHORT).show();
     }

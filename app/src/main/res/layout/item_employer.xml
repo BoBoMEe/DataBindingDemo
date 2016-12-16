@@ -30,7 +30,7 @@
 
     <variable
         name="item"
-        type="com.bobomee.android.databindingdemo.EmployerViewModel"/>
+        type="com.bobomee.android.databindingdemo.model.EmployerViewModel"/>
   </data>
 
   <LinearLayout

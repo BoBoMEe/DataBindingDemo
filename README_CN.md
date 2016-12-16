@@ -8,67 +8,70 @@
 此`Adapter`基于 [markzhai/DataBindingAdapter](https://github.com/markzhai/DataBindingAdapter) 和 [tianzhijiexian/CommonAdapter](https://github.com/tianzhijiexian/CommonAdapter) 改编而来
 结合了二者的特性，使`Adapter`使用起来更简单，支持多种`type`和`databinding`。
 
+是 databing 在 Recyclerview.Adapter 上的实践。
+
 ## Get Started
 
 
 `AdapterItem`:
 
 ```Java
-public class EmployeeItem implements AdapterItem<EmployeeViewModel> {
-  //...
+public class EmployerItem implements AdapterItem<EmployerViewModel> {
+//...
   @Override public int getLayoutResId() {
-    return R.layout.item_employee;
+    return R.layout.item_employer;// layout res
   }
 
-  @Override public Presenter getPresenter() {
-    return new EmployeePresenter();
+  @Override public Integer getVariableId() {
+    return BR.item; // xml中的item
   }
 
   @Override public Decorator getDecorator() {
-    return new Decorator() {
-      @Override public void decorator(BindingViewHolder holder, int position, int viewType) {
-      //...
-      }
-    };
+    return null; // item Decorator
   }
 
-  public class EmployeePresenter implements Presenter {
-   //...
+  @Override public Map<Integer, Object> getBindData() {
+    Map<Integer, Object> map = new HashMap<>();
+    map.put(BR.presenter, new EmployerPresenter());
+    return map; // item <-> Variable
+  }
+
+  public class EmployerPresenter {//presenter
+    public void onItemClick(EmployerViewModel model) {
+      Toast.makeText(context, "employer " + model.name, Toast.LENGTH_SHORT).show();
+    }
   }
 }
 ```
+
+注意： 需要在`bindData`中返回 `item` 和 `variable` 的键值对，`getVariableId`中指定`ViewModel`的 `item`。
 
 `CommonAdapter`:
 
 ```Java
 public class MainAdapter extends CommonAdapter {
-//...
+  //...
   @NonNull @Override public AdapterItem createItem(int viewType) {
-    return adapterItem;//
+    return adapterItem;
   }
 
   @Override public int getViewType(Object _o) {
-    return  viewType;//
+    return viewType;
   }
 }
-
 ```
-
-限制: 命名规范：你的 ViewModel 在 xml 中的明明必须为 `item`，而你的 事件监听对象 必须被命名为 `presenter`，我认为这对 Data Binding 来说是一种最佳实践。
 
 ## 事件监听
 
 使用 `databinding` 的 事件处理方式
 
 ```java
-holder.getBinding().setVariable(BR.item, item);
-    holder.getBinding()
-        .setVariable(BR.presenter, adapterItem.getPresenter());
+ holder.getBinding().setVariable(key, value);
 ```
 
 ## 装饰器
 
-有时候，我们想在 `onBindViewHolder` 做些额外的事（比如根据 position 隐藏显示一些东西），所以额外提供了一个 `Decorator` 来让你实现并 set 进去。
+使用`Decorator`接口，可以在 `onBindViewHolder` 做些额外的事（比如根据 position 隐藏显示一些东西）。
 
 ```java
 AdapterItem.Decorator decorator = adapterItem.getDecorator();

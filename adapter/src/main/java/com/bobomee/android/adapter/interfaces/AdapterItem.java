@@ -18,6 +18,7 @@ package com.bobomee.android.adapter.interfaces;
 
 import android.support.annotation.LayoutRes;
 import com.bobomee.android.adapter.BindingViewHolder;
+import java.util.Map;
 
 /**
  * Created on 2016/12/15.下午7:24.
@@ -29,14 +30,13 @@ public interface AdapterItem<T> {
 
   @LayoutRes int getLayoutResId();
 
-  public interface Presenter {
-  }
-
-  Presenter getPresenter();
+  Integer getVariableId();
 
   public interface Decorator {
     void decorator(BindingViewHolder holder, int position, int viewType);
   }
 
   Decorator getDecorator();
+
+  Map<Integer, Object> getBindData();
 }

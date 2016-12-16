@@ -19,8 +19,11 @@ package com.bobomee.android.databindingdemo.adapter;
 import android.content.Context;
 import android.widget.Toast;
 import com.bobomee.android.adapter.interfaces.AdapterItem;
-import com.bobomee.android.databindingdemo.EmployerViewModel;
+import com.bobomee.android.databindingdemo.BR;
+import com.bobomee.android.databindingdemo.model.EmployerViewModel;
 import com.bobomee.android.databindingdemo.R;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created on 2016/12/15.下午10:12.
@@ -42,15 +45,21 @@ public class EmployerItem implements AdapterItem<EmployerViewModel> {
     return R.layout.item_employer;
   }
 
-  @Override public Presenter getPresenter() {
-    return new EmployerPresenter();
+  @Override public Integer getVariableId() {
+    return BR.item;
   }
 
   @Override public Decorator getDecorator() {
     return null;
   }
 
-  public class EmployerPresenter implements AdapterItem.Presenter {
+  @Override public Map<Integer, Object> getBindData() {
+    Map<Integer, Object> map = new HashMap<>();
+    map.put(BR.presenter, new EmployerPresenter());
+    return map;
+  }
+
+  public class EmployerPresenter {
     public void onItemClick(EmployerViewModel model) {
       Toast.makeText(context, "employer " + model.name, Toast.LENGTH_SHORT).show();
     }

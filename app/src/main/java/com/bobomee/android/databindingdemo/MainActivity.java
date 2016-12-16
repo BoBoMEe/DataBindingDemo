@@ -22,6 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import com.bobomee.android.databindingdemo.adapter.MainAdapter;
 import com.bobomee.android.databindingdemo.databinding.ActivityMainBinding;
+import com.bobomee.android.databindingdemo.model.EmployeeViewModel;
+import com.bobomee.android.databindingdemo.model.EmployerViewModel;
 import java.util.ArrayList;
 import java.util.List;
 

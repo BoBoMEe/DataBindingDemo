@@ -23,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import com.bobomee.android.adapter.interfaces.AdapterItem;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Super simple multi-type adapter using data-binding.
@@ -50,11 +51,22 @@ public abstract class CommonAdapter<T> extends BaseAdapter<T> {
   @Override public void onBindViewHolder(BindingViewHolder holder, int position) {
     int itemViewType = getItemViewType(position);
     AdapterItem<T> adapterItem = getAdapterItem(itemViewType);
-    final Object item = getItem(position);
-    holder.getBinding().setVariable(com.bobomee.android.adapter.BR.item, item);
-    holder.getBinding()
-        .setVariable(com.bobomee.android.adapter.BR.presenter, adapterItem.getPresenter());
+
+    //item
+    Integer variableId = adapterItem.getVariableId();
+    T item = getItem(position);
+    holder.getBinding().setVariable(variableId, item);
+
+    //presenter
+    Map<Integer, Object> bindData = adapterItem.getBindData();
+    for (Map.Entry<Integer, Object> entry : bindData.entrySet()) {
+      Integer key = entry.getKey();
+      Object value = entry.getValue();
+      holder.getBinding().setVariable(key, value);
+    }
     holder.getBinding().executePendingBindings();
+
+    //decorator
     AdapterItem.Decorator decorator = adapterItem.getDecorator();
 
     if (decorator != null) {

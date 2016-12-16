@@ -14,13 +14,19 @@
  *  limitations under the License.
  */
 
-package com.bobomee.android.adapter;
+package com.bobomee.android.databindingdemo.model;
 
-/**
- * Created on 2016/12/15.下午10:03.
- *
- * @author bobomee.
- */
+import android.databinding.BaseObservable;
 
-public class Dummy {
+public class EmployeeViewModel extends BaseObservable {
+    public int type;
+
+    public String name;
+    public int age;
+
+    public EmployeeViewModel(String name, int age) {
+        this.type = 0;
+        this.name = name;
+        this.age = age;
+    }
 }
