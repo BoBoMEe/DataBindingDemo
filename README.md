@@ -67,6 +67,15 @@ An easy way to add listener binding
 ```java
  holder.getBinding().setVariable(key, value);
 ```
+Do not have their own settings, only need to set up presenter，Such as：
+
+```java
+ public class EmployerPresenter {//presenter
+    public void onItemClick(EmployerViewModel model) {
+      Toast.makeText(context, "employer " + model.name, Toast.LENGTH_SHORT).show();
+    }
+  }
+```
 
 ## Decorator
 
@@ -75,15 +84,24 @@ A Decorator is provided to let user implement and set ,With it we can do some ex
 ```java
 AdapterItem.Decorator decorator = adapterItem.getDecorator();
 
-    if (decorator != null) {
+if (decorator != null) {
       decorator.decorator(holder, position, getItemViewType(position));
-    }
+}
+
+//adapter
+@Override public Decorator getDecorator() {
+    return null; // return AdapterItem.Decorator
+  }
 ```
 
 # Thanks
 
 - [markzhai/DataBindingAdapter](https://github.com/markzhai/DataBindingAdapter)
 - [tianzhijiexian/CommonAdapter](https://github.com/tianzhijiexian/CommonAdapter)
+
+# Links
+
+- [Android MVVM 之DataBinding,BindingAdapter及component](http://blog.csdn.net/wbwjx/article/details/53638715)
 
 # License
 
