@@ -69,6 +69,16 @@ public class MainAdapter extends CommonAdapter {
  holder.getBinding().setVariable(key, value);
 ```
 
+不用自己设置，只需要设置presenter 即可：
+
+```java
+public class EmployerPresenter {//presenter
+    public void onItemClick(EmployerViewModel model) {
+      Toast.makeText(context, "employer " + model.name, Toast.LENGTH_SHORT).show();
+    }
+  }
+```
+
 ## 装饰器
 
 使用`Decorator`接口，可以在 `onBindViewHolder` 做些额外的事（比如根据 position 隐藏显示一些东西）。
@@ -76,15 +86,24 @@ public class MainAdapter extends CommonAdapter {
 ```java
 AdapterItem.Decorator decorator = adapterItem.getDecorator();
 
-    if (decorator != null) {
+if (decorator != null) {
       decorator.decorator(holder, position, getItemViewType(position));
-    }
+}
+
+//adapter
+@Override public Decorator getDecorator() {
+    return null; // return AdapterItem.Decorator
+}
 ```
 
 # 感谢
 
 - [markzhai/DataBindingAdapter](https://github.com/markzhai/DataBindingAdapter)
 - [tianzhijiexian/CommonAdapter](https://github.com/tianzhijiexian/CommonAdapter)
+
+## 链接
+
+- [Android MVVM 之DataBinding,BindingAdapter及component](http://blog.csdn.net/wbwjx/article/details/53638715)
 
 # 协议
 
